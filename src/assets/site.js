@@ -37,7 +37,7 @@ if (cv && !matchMedia("(prefers-reduced-motion: reduce)").matches) {
 }
 
 // Drum circle booking form -> pre-filled email
-const form = document.querySelector("form.book");
+const form = document.querySelector("form.book[data-to]");
 if (form) {
   form.addEventListener("submit", (e) => {
     e.preventDefault();

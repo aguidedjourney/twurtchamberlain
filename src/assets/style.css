@@ -130,3 +130,17 @@ form.book textarea { min-height: 120px; }
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; } }
 .hero p.kicker { max-width: none; font-size: .8rem; }
 @media (max-aspect-ratio: 1/1) { .landing__bg { object-position: 26% 50%; } }
+
+/* ---------- fan uploads ---------- */
+.gallery { list-style: none; padding: 0; margin: 1rem 0; columns: 3 220px; column-gap: 1rem; }
+.tile { break-inside: avoid; margin: 0 0 1rem; border-radius: var(--radius); overflow: hidden; background: var(--bg-2); border: 1px solid var(--line); }
+.tile img, .tile video { width: 100%; display: block; }
+.tile p { margin: 0; padding: .6rem .8rem; font-size: .9rem; } .tile small { color: var(--muted); }
+form.book .chk { display: flex; gap: .7rem; align-items: flex-start; color: var(--ink); }
+form.book .chk input { margin-top: .35rem; }
+.err { color: #ff8a8a; }
+.tabs { display: flex; gap: .6rem; margin: 1rem 0; }
+.tabs .btn[aria-pressed="true"] { border-color: var(--accent); color: var(--accent); }
+.card video, .card img { width: 100%; border-radius: 10px; max-height: 420px; object-fit: contain; background: #000; }
+.cap { width: 100%; font: inherit; color: var(--ink); background: var(--bg); border: 1px solid var(--line); border-radius: 10px; padding: .6rem .8rem; margin-top: .6rem; }
+.linkrow .btn--ghost { background: transparent; color: var(--ink); }

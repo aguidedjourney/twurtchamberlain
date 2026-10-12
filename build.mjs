@@ -5,6 +5,7 @@ const SITE = "https://twurtchamberlain.com";
 const NAME = "Twurt Chamberlain";
 const CONTACT = "booking@twurtchamberlain.com"; // TODO: confirm real booking address
 const SAME_AS = []; // TODO: add Spotify / Instagram / YouTube profile URLs (boosts SEO knowledge-panel matching)
+const TURNSTILE_SITEKEY = process.env.TURNSTILE_SITEKEY || "1x00000000000000000000AA"; // Cloudflare test key (always passes); set the real key as a Pages build variable
 const OG = `${SITE}/assets/img/og.jpg`;
 
 const BIO =
@@ -32,6 +33,9 @@ const zones = [
   { slug: "junkyard", title: "The Junkyard", nav: "Oddities", c: "#ff7a45", x: 88.9, y: 17.1, d: 2,
     blurb: "Photos, flyers & oddities", icon: icon('<path d="M3 20h14M5 20l3-9 6-6 3 3-4 5-4 7"/><path d="M14 5l5 5"/>'),
     seo: "The Junkyard — Photos, Old Flyers & Oddities from Twurt's World", desc: "Photos, old show flyers and random oddities from Twurt Chamberlain's world, added over time." },
+  { slug: "photo-pit", title: "The Photo Pit", nav: "Fan Pics", c: "#ff5fd2", pin: false,
+    blurb: "Fan photos & videos from the shows", icon: "",
+    seo: "Fan Photos & Videos from Twurt Chamberlain Shows", desc: "Fan photos and video clips from Twurt Chamberlain shows. Share yours — approved uploads appear in the gallery." },
   { slug: "gate", title: "The Gate", nav: "About", c: "#ff4f6d", x: 50, y: 74.3, d: 2.4,
     blurb: "Who is Twurt? Bio & contact", icon: icon('<path d="M3 9a2 2 0 0 0 0 6v3h18v-3a2 2 0 0 1 0-6V6H3Z"/><path d="M14 6v12" stroke-dasharray="2 2"/>'),
     seo: "About Twurt Chamberlain — Mississippi Blues, Rock & Hip-Hop Singer-Songwriter", desc: "Twurt Chamberlain is a soulful vocalist and guitarist from Lexington, Mississippi, fusing blues, rock and hip-hop. TWURT stands for The World's Most Unique Representation of Truth." },
@@ -48,7 +52,7 @@ const person = {
 };
 const album = { "@type": "MusicAlbum", name: "Country Punk Black", byArtist: { "@id": person["@id"] } };
 
-function head({ title, desc, path, ld = [], extra = "" }) {
+function head({ title, desc, path, ld = [], extra = "", noindex = false }) {
   const url = SITE + path;
   const graph = { "@context": "https://schema.org", "@graph": [person, ...ld] };
   return `<!doctype html>
@@ -59,6 +63,7 @@ function head({ title, desc, path, ld = [], extra = "" }) {
 <title>${esc(title)}</title>
 <meta name="description" content="${esc(desc)}">
 <link rel="canonical" href="${url}">
+${noindex ? '<meta name="robots" content="noindex, nofollow">\n' : ""}
 <meta name="theme-color" content="#07060b">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="${NAME}">
@@ -110,7 +115,7 @@ const landing = `${head({
 </body></html>`;
 
 // ---------- map ----------
-const pins = zones.map((z) => `<a class="pin" href="/${z.slug}/" style="left:${z.x}%;top:${z.y}%;--c:${z.c};--d:${z.d}s;background:rgba(7,6,11,.82);border:2px solid ${z.c}" aria-label="${z.title}: ${z.blurb}">${z.icon}<span class="lbl">${z.nav}</span></a>`).join("\n    ");
+const pins = zones.filter((z) => z.pin !== false).map((z) => `<a class="pin" href="/${z.slug}/" style="left:${z.x}%;top:${z.y}%;--c:${z.c};--d:${z.d}s;background:rgba(7,6,11,.82);border:2px solid ${z.c}" aria-label="${z.title}: ${z.blurb}">${z.icon}<span class="lbl">${z.nav}</span></a>`).join("\n    ");
 const zlist = zones.map((z) => `<li><a href="/${z.slug}/" style="--c:${z.c}"><strong>${z.title}</strong><small>${z.blurb}</small></a></li>`).join("\n    ");
 
 const siteNav = (cur) => `<header class="site-head"><a href="/festival/" aria-label="Festival map"><img src="/assets/img/twurt-logo.png" width="88" height="34" alt="${NAME}"></a>
@@ -216,18 +221,50 @@ const gate = zonePage(Z.gate, "The Gate", "Who Is Twurt?", "Soulful vocalist and
   <h2>Contact &amp; booking</h2>
   <p><a href="mailto:${CONTACT}">${CONTACT}</a></p>`, [{ "@type": "ProfilePage", mainEntity: { "@id": person["@id"] } }]);
 
+
+const photopit = zonePage(Z["photo-pit"], "The Photo Pit", "Fan Pics & Clips", "Got a photo or video from a show? Share it. Twurt looks at every upload before it goes up.",
+  `  <h2>The wall</h2>
+  <ul id="gallery" class="gallery" aria-live="polite"><li class="tbd">Loading the wall&hellip;</li></ul>
+  <noscript><p class="tbd">The fan gallery needs JavaScript.</p></noscript>
+  <h2>Add yours</h2>
+  <p>Photos or short clips (up to 60 seconds). Nothing appears publicly until Twurt approves it.</p>
+  <form id="upload-form" class="book">
+    <label>Photos or videos (up to 5)<input name="files" id="files" type="file" multiple accept="image/*,video/mp4,video/quicktime" required></label>
+    <label>Which show? (optional)<input name="show" maxlength="80" placeholder="Venue, city, date"></label>
+    <label>Name for credit (optional)<input name="name" maxlength="60" autocomplete="name"></label>
+    <label class="chk"><input type="checkbox" name="consent" required><span>I took this (or have permission to share it), and I give Twurt Chamberlain permission to display it on this website and his social channels. I can ask for removal anytime.</span></label>
+    <div class="cf-turnstile" data-sitekey="${TURNSTILE_SITEKEY}" data-theme="dark"></div>
+    <button class="btn" type="submit">Send for approval</button>
+    <div id="upload-log" aria-live="polite"></div>
+  </form>
+  <h2>House rules</h2>
+  <p>Keep it kind and keep it real: no nudity, hate or harassment, and please don't upload photos of people who wouldn't want them shared. Photos are resized in your browser and location data is removed. To request removal of something you see here, email <a href="mailto:${CONTACT}">${CONTACT}</a>.</p>`,
+  [], `<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>\n<script type="module" src="/assets/photo-pit.js"></script>\n`);
+
+// Admin queue: protected by Cloudflare Access, never indexed.
+const admin = `${head({ title: "Moderation | Twurt Chamberlain", desc: "Private moderation queue.", path: "/admin/", noindex: true })}
+<body class="zone" style="--c:#ff5fd2">
+<main class="content">
+  <h1>Fan upload queue</h1>
+  <div class="tabs"><button class="btn btn--ghost" data-tab="pending" aria-pressed="true">Waiting</button><button class="btn btn--ghost" data-tab="approved" aria-pressed="false">Published</button></div>
+  <ul id="queue" class="cards"></ul>
+</main>
+<script type="module" src="/assets/admin.js"></script>
+</body></html>`;
+
 // ---------- write ----------
 rmSync("dist", { recursive: true, force: true });
 mkdirSync("dist", { recursive: true });
 cpSync("src/assets", "dist/assets", { recursive: true });
 const out = (p, c) => { mkdirSync(`dist/${p}`, { recursive: true }); writeFileSync(`dist/${p}${p ? "/" : ""}index.html`, c); };
 out("", landing); out("festival", festival);
-const pages = { stage, "dj-booth": djbooth, merch, "drum-circle": drum, woods, junkyard: junk, gate };
+out("admin", admin);
+const pages = { "photo-pit": photopit, stage, "dj-booth": djbooth, merch, "drum-circle": drum, woods, junkyard: junk, gate };
 for (const [k, v] of Object.entries(pages)) out(k, v);
 
 const urls = ["/", "/festival/", ...zones.map((z) => `/${z.slug}/`)];
 const today = new Date().toISOString().slice(0, 10);
 writeFileSync("dist/sitemap.xml", `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls.map((u) => `  <url><loc>${SITE}${u}</loc><lastmod>${today}</lastmod></url>`).join("\n")}\n</urlset>\n`);
-writeFileSync("dist/robots.txt", `User-agent: *\nAllow: /\n\nSitemap: ${SITE}/sitemap.xml\n`);
-writeFileSync("dist/_headers", `/assets/*\n  Cache-Control: public, max-age=86400\n\n/*\n  X-Content-Type-Options: nosniff\n  Referrer-Policy: strict-origin-when-cross-origin\n`);
+writeFileSync("dist/robots.txt", `User-agent: *\nAllow: /\nDisallow: /admin/\nDisallow: /api/\n\nSitemap: ${SITE}/sitemap.xml\n`);
+writeFileSync("dist/_headers", `/assets/*\n  Cache-Control: public, max-age=86400\n\n/admin/*\n  X-Robots-Tag: noindex\n  Cache-Control: no-store\n\n/*\n  X-Content-Type-Options: nosniff\n  Referrer-Policy: strict-origin-when-cross-origin\n`);
 console.log(`Built ${urls.length} pages -> dist/`);
