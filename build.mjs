@@ -15,28 +15,28 @@ const icon = (p) => `<svg viewBox="0 0 24 24" width="55%" fill="none" stroke="cu
 
 // Zones: x/y are pin positions as % of the map image.
 const zones = [
-  { slug: "stage", title: "The Sound Stage", nav: "Shows", c: "#8a7bff", x: 50, y: 13.5, d: 0,
+  { slug: "stage", title: "The Sound Stage", nav: "Shows", c: "#ff3b30", x: 50, y: 13.5, d: 0,
     blurb: "Live shows & tour dates", icon: icon('<path d="M4 12v0M8 7v10M12 4v16M16 8v8M20 11v2"/>'),
     seo: "Twurt Chamberlain Live Shows & Tour Dates", desc: "Upcoming live shows and tour dates for Mississippi blues, rock and hip-hop singer-songwriter Twurt Chamberlain." },
-  { slug: "dj-booth", title: "The DJ Booth", nav: "Music", c: "#c25bff", x: 50, y: 42.7, d: .4,
+  { slug: "dj-booth", title: "The DJ Booth", nav: "Music", c: "#ffd21f", x: 50, y: 42.7, d: .4,
     blurb: "Listen: Country Punk Black & more", icon: icon('<path d="M4 14v-2a8 8 0 0 1 16 0v2"/><rect x="3" y="14" width="4" height="6" rx="1.5"/><rect x="17" y="14" width="4" height="6" rx="1.5"/>'),
     seo: "Listen to Twurt Chamberlain — Country Punk Black", desc: "Stream Twurt Chamberlain's debut album Country Punk Black — blues, rock, soul and hip-hop from the Mississippi Delta." },
-  { slug: "merch", title: "The Merch Stand", nav: "Merch", c: "#3fc7d1", x: 18.7, y: 46.6, d: .8,
+  { slug: "merch", title: "The Merch Stand", nav: "Merch", c: "#2fd25f", x: 18.7, y: 46.6, d: .8,
     blurb: "Shirts, gear & goods", icon: icon('<path d="M8 4 3 7l2 4 2-1v10h10V10l2 1 2-4-5-3a4 4 0 0 1-8 0Z"/>'),
     seo: "Twurt Chamberlain Merch", desc: "Official Twurt Chamberlain merchandise — shirts, gear and goods." },
-  { slug: "drum-circle", title: "The Drum Circle", nav: "Book", c: "#ffb347", x: 78.8, y: 50.9, d: 1.2,
+  { slug: "drum-circle", title: "The Drum Circle", nav: "Book", c: "#f5b800", x: 78.8, y: 50.9, d: 1.2,
     blurb: "Book a community drum circle or jam", icon: icon('<path d="m12 3 2.6 5.6 6.1.7-4.5 4.2 1.2 6L12 16.5 6.6 19.5l1.2-6L3.3 9.3l6.1-.7Z"/>'),
     seo: "Book Twurt Chamberlain — Drum Circles & Jam Sessions", desc: "Book Twurt Chamberlain to host a community drum circle or jam session in Mississippi and beyond." },
-  { slug: "woods", title: "The Woods", nav: "Mind", c: "#55d36f", x: 14.7, y: 15.7, d: 1.6,
+  { slug: "woods", title: "The Woods", nav: "Mind", c: "#27c254", x: 14.7, y: 15.7, d: 1.6,
     blurb: "Wander in. Enter Twurt's mind.", icon: icon('<path d="m12 3 5 7h-3l4 6h-5v5h-2v-5H6l4-6H7Z"/>'),
     seo: "Into the Woods — Inside the Mind of Twurt Chamberlain", desc: "Wander into the woods and enter the mind of Twurt Chamberlain: thoughts, truth and recommended reading." },
-  { slug: "junkyard", title: "The Junkyard", nav: "Oddities", c: "#ff7a45", x: 88.9, y: 17.1, d: 2,
+  { slug: "junkyard", title: "The Junkyard", nav: "Oddities", c: "#e8392f", x: 88.9, y: 17.1, d: 2,
     blurb: "Photos, flyers & oddities", icon: icon('<path d="M3 20h14M5 20l3-9 6-6 3 3-4 5-4 7"/><path d="M14 5l5 5"/>'),
     seo: "The Junkyard — Photos, Old Flyers & Oddities from Twurt's World", desc: "Photos, old show flyers and random oddities from Twurt Chamberlain's world, added over time." },
-  { slug: "photo-pit", title: "The Photo Pit", nav: "Fan Pics", c: "#ff5fd2", pin: false,
+  { slug: "photo-pit", title: "The Photo Pit", nav: "Fan Pics", c: "#ff5a4d", pin: false,
     blurb: "Fan photos & videos from the shows", icon: "",
     seo: "Fan Photos & Videos from Twurt Chamberlain Shows", desc: "Fan photos and video clips from Twurt Chamberlain shows. Share yours — approved uploads appear in the gallery." },
-  { slug: "gate", title: "The Gate", nav: "About", c: "#ff4f6d", x: 50, y: 74.3, d: 2.4,
+  { slug: "gate", title: "The Gate", nav: "About", c: "#2fd25f", x: 50, y: 74.3, d: 2.4,
     blurb: "Who is Twurt? Bio & contact", icon: icon('<path d="M3 9a2 2 0 0 0 0 6v3h18v-3a2 2 0 0 1 0-6V6H3Z"/><path d="M14 6v12" stroke-dasharray="2 2"/>'),
     seo: "About Twurt Chamberlain — Mississippi Blues, Rock & Hip-Hop Singer-Songwriter", desc: "Twurt Chamberlain is a soulful vocalist and guitarist from Lexington, Mississippi, fusing blues, rock and hip-hop. TWURT stands for The World's Most Unique Representation of Truth." },
 ];
@@ -64,7 +64,7 @@ function head({ title, desc, path, ld = [], extra = "", noindex = false }) {
 <meta name="description" content="${esc(desc)}">
 <link rel="canonical" href="${url}">
 ${noindex ? '<meta name="robots" content="noindex, nofollow">\n' : ""}
-<meta name="theme-color" content="#07060b">
+<meta name="theme-color" content="#050505">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="${NAME}">
 <meta property="og:title" content="${esc(title)}">
@@ -99,9 +99,9 @@ const landing = `${head({
   <img class="landing__bg" src="/assets/img/entrance.webp" width="1254" height="1254" alt="The glowing Twurt sign above the festival entrance on a snowy night" fetchpriority="high">
   <div class="landing__inner">
     <h1 class="sr-only">${NAME} — Mississippi blues, rock &amp; hip-hop singer-songwriter</h1>
-    <p class="tag">The World's Most Unique Representation of Truth.</p>
+    <p class="tag">Krazy groovy vibes on the frequency of truth.</p>
     <a id="enter" class="btn" data-enter href="/festival/">Enter the Festival</a>
-    <p class="fine">Lights, sound &amp; good energy ahead. <a href="#about">Just want the bio?</a></p>
+    <p class="fine">Funky lights, loud sound, good vibes ahead. <a href="#about">Just want the bio?</a></p>
   </div>
 </header>
 <main id="about" class="content" style="padding-top:3rem">
@@ -130,8 +130,8 @@ const festival = `${head({
 <body>
 ${siteNav("")}
 <main class="mapwrap">
-  <h1>Welcome to Twurt's World</h1>
-  <p class="lede">Tap anywhere that's glowing. Every light on this map is a place to explore.</p>
+  <h1>Welcome to Twurt's Krazy World</h1>
+  <p class="lede">Tap anything that's glowing. Every light on this map is a krazy new corner of Twurt's world.</p>
   <div class="map">
     <img src="/assets/img/festival-map.webp" width="1254" height="1254" alt="Night-time aerial map of the festival grounds: sound stage, DJ booth, merch stand, drum circle tent, woods, junkyard and entrance gate" fetchpriority="high">
     ${pins}
@@ -164,26 +164,26 @@ ${body}
 
 // TODO: replace with real dates. Shows are plain HTML so search engines can read them.
 const shows = [];
-const stage = zonePage(Z.stage, "Main Stage", "Live Shows", "Catch Twurt with the full band or as a solo act. Rockstar energy, honest lyrics.",
+const stage = zonePage(Z.stage, "Main Stage", "Live Shows", "Catch Twurt with the full band or as a solo act. Rockstar energy, groovy vibes, honest lyrics.",
   `  <h2>Upcoming shows</h2>
-${shows.length ? shows.map((s) => `  <div class="show"><div class="date"><b>${s.day}</b>${s.mon}</div><div><h3>${s.venue}</h3><p>${s.city}</p></div><a class="btn" href="${s.url}">Tickets</a></div>`).join("\n") : `  <p class="tbd">The stage is being set. Show dates are coming soon &mdash; check back, or <a href="/drum-circle/">book Twurt</a> for your event.</p>`}
+${shows.length ? shows.map((s) => `  <div class="show"><div class="date"><b>${s.day}</b>${s.mon}</div><div><h3>${s.venue}</h3><p>${s.city}</p></div><a class="btn" href="${s.url}">Tickets</a></div>`).join("\n") : `  <p class="tbd">The stage is being set. Show dates are dropping soon. Stay on the frequency, or <a href="/drum-circle/">book Twurt</a> for your event.</p>`}
   <h2>Bring Twurt to you</h2>
   <p>Full band, solo acoustic, festivals, venues and private events. <a href="/drum-circle/">Get in touch through the Drum Circle &rarr;</a></p>`);
 
 const platforms = ["Spotify", "Apple Music", "YouTube", "Bandcamp"]; // TODO: real URLs
-const djbooth = zonePage(Z["dj-booth"], "DJ Booth", "Press Play", "Blues, rock, soul and hip-hop, all from the Mississippi Delta.",
+const djbooth = zonePage(Z["dj-booth"], "DJ Booth", "Tune In", "Funky blues, rock, soul and hip-hop, straight from the Mississippi Delta. Turn it up.",
   `  <h2>Country Punk Black</h2>
   <p>The debut album from Twurt Chamberlain: a fusion of blues, rock and hip-hop with uplifting, truth-driven lyrics.</p>
   <div class="linkrow">${platforms.map((p) => `<a class="btn" href="#" rel="noopener">${p}</a>`).join("")}</div>
   <p class="tbd">Streaming links are being wired up.</p>`, [album]);
 
-const merch = zonePage(Z.merch, "Merch Stand", "Wear the Truth", "Shirts, gear and goods straight from the festival.",
+const merch = zonePage(Z.merch, "Merch Stand", "Wear the Vibes", "Shirts, gear and goods with a whole lotta funk, straight from the festival.",
   `  <h2>The racks</h2>
   <ul class="cards">${["Tees", "Hoodies", "Hats", "Stickers & Goods"].map((n) => `<li class="card"><div class="thumb">photo soon</div><h3>${n}</h3><p class="meta">Coming soon</p></li>`).join("")}</ul>
   <div class="linkrow"><a class="btn" href="#">Shop all merch</a></div>
   <p class="tbd">Store link goes here once the shop is live.</p>`);
 
-const drum = zonePage(Z["drum-circle"], "Drum Circle", "Come Make Some Noise", "Book Twurt to host a community drum circle or jam session. All ages, all levels, no experience needed.",
+const drum = zonePage(Z["drum-circle"], "Drum Circle", "Come Make Some Krazy Noise", "Book Twurt to host a community drum circle or jam session. All ages, all levels, no experience needed, just bring your good vibes.",
   `  <h2>Book a circle</h2>
   <p>Community centers, schools, festivals, retreats, corporate events and backyard gatherings. Tell us what you have in mind.</p>
   <form class="book" data-to="${CONTACT}">
@@ -198,18 +198,18 @@ const drum = zonePage(Z["drum-circle"], "Drum Circle", "Come Make Some Noise", "
   <noscript><p>Email <a href="mailto:${CONTACT}">${CONTACT}</a> to book.</p></noscript>`);
 
 const thoughts = [
-  ["What is truth?", "TWURT: The World's Most Unique Representation of Truth. Not a slogan, a practice. Say the real thing, kindly."],
-  ["Why light?", "Twurt's mission: spread light and positivity from the Mississippi Delta to the rest of the world."],
-  ["Where does the sound come from?", "Blues, rock, soul and hip-hop all grew up on the same roads. His music just lets them sit at the same table."],
+  ["What is truth?", "TWURT: The World's Most Unique Representation of Truth. Not a slogan, a practice. Say the real thing, kindly, and you're already on the frequency."],
+  ["Why light?", "Twurt's mission: spread light, positivity and good vibes from the Mississippi Delta to the rest of the world."],
+  ["Where does the sound come from?", "Blues, rock, soul and hip-hop all grew up on the same roads. Twurt just lets them sit at the same table and get funky."],
 ];
-const woods = zonePage(Z.woods, "The Woods", "Enter Twurt's Mind", "Follow the lights off the path. Open a thought. Take what you need.",
+const woods = zonePage(Z.woods, "The Woods", "Enter Twurt's Mind", "Follow the lights off the path. Open a thought. Find your frequency.",
   `  <h2>Thoughts on the trail</h2>
   <p>Tap a thought to see where it leads.</p>
   <div class="thoughts">${thoughts.map(([q, a]) => `<button class="thought" aria-expanded="false">${q}<span class="reveal">${a}</span></button>`).join("")}</div>
   <h2>Recommended reading</h2>
   <p class="tbd">Twurt's reading shelf is being stocked. Check back soon for the books that shaped his mind.</p>`);
 
-const junk = zonePage(Z.junkyard, "The Junkyard", "Oddities & Artifacts", "Photos, old show flyers and random things Twurt decides to share, added over time.",
+const junk = zonePage(Z.junkyard, "The Junkyard", "Oddities & Artifacts", "Photos, old show flyers and krazy random things Twurt decides to share, added over time.",
   `  <h2>Found objects</h2>
   <ul class="cards">${["Photos", "Old show flyers", "Random oddities"].map((n) => `<li class="card"><div class="thumb">first finds soon</div><h3>${n}</h3><p class="meta">Digging&hellip;</p></li>`).join("")}</ul>
   <p class="tbd">The junkyard fills up as Twurt shares more. Come back often.</p>`);
@@ -222,7 +222,7 @@ const gate = zonePage(Z.gate, "The Gate", "Who Is Twurt?", "Soulful vocalist and
   <p><a href="mailto:${CONTACT}">${CONTACT}</a></p>`, [{ "@type": "ProfilePage", mainEntity: { "@id": person["@id"] } }]);
 
 
-const photopit = zonePage(Z["photo-pit"], "The Photo Pit", "Fan Pics & Clips", "Got a photo or video from a show? Share it. Twurt looks at every upload before it goes up.",
+const photopit = zonePage(Z["photo-pit"], "The Photo Pit", "Fan Pics & Clips", "Got a groovy photo or video from a show? Share the vibes. Twurt looks at every upload before it goes up.",
   `  <h2>The wall</h2>
   <ul id="gallery" class="gallery" aria-live="polite"><li class="tbd">Loading the wall&hellip;</li></ul>
   <noscript><p class="tbd">The fan gallery needs JavaScript.</p></noscript>
@@ -238,12 +238,12 @@ const photopit = zonePage(Z["photo-pit"], "The Photo Pit", "Fan Pics & Clips", "
     <div id="upload-log" aria-live="polite"></div>
   </form>
   <h2>House rules</h2>
-  <p>Keep it kind and keep it real: no nudity, hate or harassment, and please don't upload photos of people who wouldn't want them shared. Photos are resized in your browser and location data is removed. To request removal of something you see here, email <a href="mailto:${CONTACT}">${CONTACT}</a>.</p>`,
+  <p>Keep the vibes good and keep it real: no nudity, hate or harassment, and please don't upload photos of people who wouldn't want them shared. Photos are resized in your browser and location data is removed. To request removal of something you see here, email <a href="mailto:${CONTACT}">${CONTACT}</a>.</p>`,
   [], `<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>\n<script type="module" src="/assets/photo-pit.js"></script>\n`);
 
 // Admin queue: protected by Cloudflare Access, never indexed.
 const admin = `${head({ title: "Moderation | Twurt Chamberlain", desc: "Private moderation queue.", path: "/admin/", noindex: true })}
-<body class="zone" style="--c:#ff5fd2">
+<body class="zone" style="--c:#ffd21f">
 <main class="content">
   <h1>Fan upload queue</h1>
   <div class="tabs"><button class="btn btn--ghost" data-tab="pending" aria-pressed="true">Waiting</button><button class="btn btn--ghost" data-tab="approved" aria-pressed="false">Published</button></div>

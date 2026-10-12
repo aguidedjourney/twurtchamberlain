@@ -8,7 +8,7 @@ const gallery = $("#gallery"), form = $("#upload-form"), log = $("#upload-log");
   if (!gallery) return;
   try {
     const { items } = await (await fetch("/api/gallery")).json();
-    if (!items?.length) { gallery.innerHTML = '<p class="tbd">No fan pics yet. Be the first. Upload yours below!</p>'; return; }
+    if (!items?.length) { gallery.innerHTML = '<p class="tbd">No fan pics yet. Be the first to share the vibes. Upload yours below!</p>'; return; }
     gallery.innerHTML = "";
     for (const it of items) {
       const li = document.createElement("li");
@@ -85,7 +85,7 @@ form?.addEventListener("submit", async (e) => {
       await put(`/api/upload/${out.slots[i].id}?sig=${out.slots[i].sig}`, items[i].blob, items[i].type, (p) => (line.textContent = `Uploading ${picked[i].name}… ${p}%`));
       line.textContent = `✓ ${picked[i].name} sent`;
     }
-    say("Thank you! Twurt reviews every upload. If it's approved, it'll show up in the gallery.");
+    say("Good vibes! Twurt reviews every upload. If it's approved, it'll show up on the wall.");
     form.reset();
   } catch (err) { say(err.message, true); }
   finally { btn.disabled = false; window.turnstile?.reset(); }
